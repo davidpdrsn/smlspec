@@ -1,1 +1,1 @@
-# sml_test_runner
+# SML test runner
