@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.description = "Gem for running tests in SML files"
   s.authors     = ["David Pedersene"]
   s.email       = 'david.pdrsn@gmail.com'
-  s.files       = ["lib/hola.rb"]
+  s.files       = ["lib/formats_lines.rb", "formats_tests.rb"]
   s.homepage    = 'http://github.com/davidpdrsn/smlspec'
   s.license     = 'MIT'
 
