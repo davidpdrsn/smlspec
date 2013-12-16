@@ -1,3 +1,8 @@
+PATH
+  remote: .
+  specs:
+    smlspec (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -18,3 +23,4 @@ PLATFORMS
 DEPENDENCIES
   rake
   rspec
+  smlspec!
