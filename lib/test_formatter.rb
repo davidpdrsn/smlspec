@@ -1,5 +1,13 @@
 class TestFormatter
+  def name(test)
+    test.match(/val (.*?) =/)[1]
+  end
+
+  def condition(test)
+    test.match(/val .*? = (.*?)$/)[1]
+  end
+
   def format(test)
-    "val foo_test1 = test \"foo_test1\" (3 = 3)"
+    "val #{name(test)} = test \"#{name(test)}\" (#{condition(test)})"
   end
 end
