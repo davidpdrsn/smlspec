@@ -1,6 +1,3 @@
-require 'formats_lines'
-require 'formats_tests'
-
 class SmlFile
   class NotCompiled < Exception; end
   class CannotCompile < Exception; end

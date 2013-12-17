@@ -1,3 +1,4 @@
+fun test desc condition = print(desc^" "^Bool.toString(condition)^"\n")
 fun headString "" = "" | headString s  = String.extract (s, 0, SOME 1)
 fun tailString "" = "" | tailString s  = String.extract (s, 1, NONE)
 val allDefined_test1 = test "allDefined_test1" (allDefined [NONE,SOME 7,SOME 3,NONE, SOME 7] = [7,3,7])

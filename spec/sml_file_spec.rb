@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'formats_lines'
+require 'formats_tests'
 require 'sml_file'
 require 'fileutils'
 
