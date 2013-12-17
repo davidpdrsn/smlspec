@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'formats_lines'
 require 'formats_tests'
 require 'sml_file'
-require 'fileutils'
 
 describe SmlFile do
   before(:each) { clean_tmp }
@@ -11,10 +10,14 @@ describe SmlFile do
   let(:file) { SmlFile.new("spec/fixtures/unformatted_tests.sml") }
 
   describe "#save_as!" do
-    it "saves the file to the specified folder" do
-      file.save_as!("tmp/saved_as.sml")
+    before { file.save_as!("tmp/saved_as.sml") }
 
+    it "saves the file to the specified folder" do
       File.read("tmp/saved_as.sml").should eq file.contents
+    end
+
+    it "updates the path" do
+      file.path.should eq "tmp/saved_as.sml"
     end
   end
 
@@ -64,6 +67,18 @@ describe SmlFile do
       expect do
         file.run
       end.to raise_error SmlFile::NotCompiled
+    end
+  end
+
+  describe "#delete!" do
+    it "deletes the file" do
+      File.write("tmp/tmp.sml", "")
+      f = SmlFile.new("tmp/tmp.sml")
+
+      expect do
+        f.delete!
+      end.to change { File.exists?("tmp/tmp.sml") }
+      f.path.should be_nil
     end
   end
 end

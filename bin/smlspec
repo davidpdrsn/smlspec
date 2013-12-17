@@ -1,0 +1,61 @@
+#!/usr/bin/env ruby
+
+require 'colorize'
+require 'digest/md5'
+
+$:.unshift("lib")
+require 'formats_lines'
+require 'formats_tests'
+require 'sml_file'
+require 'test_output_parser'
+
+class Runner
+  def self.main(input)
+    new(input)
+  end
+
+  def initialize(input)
+    @input = input || ""
+    check_for_correct_input
+
+    @file = SmlFile.new(@input).prepare_tests
+
+    @file.save_as!(random_name + ".sml")
+
+    begin
+      @file.compile!(random_name + ".exe")
+      puts TestOutputParser.parse(@file.run)
+    rescue SmlFile::CannotCompile => e
+      puts TestOutputParser.parse(e.message)
+    ensure
+      clean_up!
+    end
+  end
+
+  private
+
+  def clean_up!
+    [".uo", ".ui", ".exe"].each do |s|
+      FileUtils.rm_f(File.basename(@file.path, ".*") + s)
+    end
+
+    @file.delete!
+  end
+
+  def random_name
+    Digest::MD5.hexdigest(Time.now.to_s)
+  end
+
+  def check_for_correct_input
+    if !valid_file_input
+      puts "Gimme an sml file, that exists!"
+      exit 1
+    end
+  end
+
+  def valid_file_input
+    @input && File.exists?(@input) && File.extname(@input) == ".sml"
+  end
+end
+
+Runner.main(ARGV.first)

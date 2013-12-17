@@ -9,9 +9,8 @@ SmlFile
 ============
 contents : string
 ------------
-new(file_path : string) : SmlFile
-save! : void
+initialize(file_path : string) : SmlFile
 save_as!(file_path : string) : void
 prepare_tests : SmlFile
 compile! : void
-run! : string
+run : string

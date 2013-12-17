@@ -1,9 +1,11 @@
+require 'fileutils'
+
 class SmlFile
   class NotCompiled < Exception; end
   class CannotCompile < Exception; end
   class NotSaved < Exception; end
 
-  attr_reader :contents
+  attr_reader :contents, :path
 
   def initialize(path, contents=nil)
     @path = path
@@ -11,7 +13,9 @@ class SmlFile
   end
 
   def save_as!(new_path)
-    File.write(new_path, @contents)
+    if File.write(new_path, @contents)
+      @path = new_path
+    end
   end
 
   def prepare_tests
@@ -37,5 +41,10 @@ class SmlFile
     else
       raise NotCompiled
     end
+  end
+
+  def delete!
+    FileUtils.rm_f(@path)
+    @path = nil
   end
 end
