@@ -17,7 +17,25 @@ describe TestOutputParser do
       "foo_test2".red,
       "",
       "",
-      "2 tests ran, 1 failure, 1 pass",
+      "2 tests ran, 1 red, 1 green",
+      "",
+      "",
+    ].join("\n")
+
+    TestOutputParser.parse(output).should eq parsed_output
+  end
+
+  it "parses output with only passes" do
+    output = [
+      "foo_test1 true",
+      "foo_test2 true",
+    ].join("\n")
+
+    parsed_output = [
+      ".".green+".".green,
+      "",
+      "",
+      "2 tests ran, 0 red, 2 green",
       "",
       "",
     ].join("\n")

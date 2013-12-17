@@ -14,14 +14,18 @@ class TestOutputParser
   end
 
   def parse
-    [
-      dots_or_fs,
-      blank_lines(3),
-      failed_tests,
-      blank_lines(2),
-      "#{total} tests ran, #{failures} failure, #{passed} pass",
-      blank_lines(2),
-    ].flatten.join("\n")
+    output = ""
+
+    output += dots_or_fs + "\n"
+    if failures > 0
+      output += blank_lines(3) + "\n"
+      output += failed_tests + "\n"
+    end
+    output += blank_lines(2) + "\n"
+    output += "#{total} tests ran, #{failures} red, #{passed} green" + "\n"
+    output += blank_lines(2)
+
+    output
   end
 
   def parse_error
@@ -36,7 +40,7 @@ class TestOutputParser
   private
 
   def blank_lines(n)
-    Array.new(n, "")
+    Array.new(n, "").join("\n")
   end
 
   def dots_or_fs
