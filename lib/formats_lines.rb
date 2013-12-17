@@ -11,6 +11,14 @@ class FormatsLines
 
   def initialize(lines)
     @lines = lines
+    @keywords = %w(
+      abstype and andalso as case do datatype div
+      else end eqtype exception extract fn fun functor
+      handle if in include infix infixr let local mod
+      nonfix of op open orelse raise rec sharing sig
+      signature struct structure then type val where
+      with withtype
+    )
   end
 
   def remove_comments!
@@ -37,8 +45,9 @@ class FormatsLines
   private
 
   def broken_line(line)
-    not(line =~ (/^(fun|val|local|in|end|type)/))
+    not(line =~ Regexp.new("^(#{@keywords.join("|")})"))
   end
+
 
   def join_lines!(lines, from, to)
     lines[to] = lines[to] + " " + lines.delete_at(from)
