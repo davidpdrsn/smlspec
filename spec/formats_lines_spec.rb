@@ -9,6 +9,10 @@ describe FormatsLines do
     FormatsLines.format(unformatted).should eq formatted
   end
 
+  it "doesn't die when given one that that should be joined" do
+    FormatsLines.format("foo _  = 3").should eq "foo _  = 3"
+  end
+
   it "removes comments" do
     formatter = FormatsLines.new(fixture("with_comments.sml"))
     fixed = fixture("without_comments.sml")

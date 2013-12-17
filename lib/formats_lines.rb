@@ -27,7 +27,7 @@ class FormatsLines
     lines = @lines.split("\n")
 
     each_in_reverse!(lines) do |i|
-      join_lines!(lines, i, i-1) if broken_line(lines[i])
+      join_lines!(lines, i, i-1) if i > 0 && broken_line(lines[i])
     end
 
     @lines = lines.join("\n")
