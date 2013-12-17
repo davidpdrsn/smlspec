@@ -21,3 +21,8 @@ end
 def fixture(fixture_name)
   File.read("spec/fixtures/#{fixture_name}").chomp
 end
+
+def clean_tmp
+  Dir.glob("tmp/*").each {|f| FileUtils.rm_f(f) }
+end
+
