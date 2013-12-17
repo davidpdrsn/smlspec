@@ -37,7 +37,7 @@ class FormatsLines
   private
 
   def broken_line(line)
-    not(line =~ (/^(fun|val|local|in|end)/))
+    not(line =~ (/^(fun|val|local|in|end|type)/))
   end
 
   def join_lines!(lines, from, to)
