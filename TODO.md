@@ -6,6 +6,7 @@
 - [ ] show time it took to run tests
 - [ ] clean up fixtures folder
 - [ ] make tests of SmlFile isolated, could be done using dependency injection
+- [ ] refactor binary
 
 ## Others
 
