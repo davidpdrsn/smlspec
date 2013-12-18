@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'smlspec'
-  s.version     = '0.0.4'
+  s.version     = '0.0.5'
   s.date        = '2012-12-16'
   s.summary     = "Runner for SML tests"
   s.description = "Gem for running tests in SML files"
