@@ -1,29 +1,25 @@
 class TestOutputParser
-  def self.parse(input)
-    parser = self.new(input)
+  def self.parse(test_results)
+    parser = self.new(test_results)
 
-    if input.match(/!/)
-      parser.parse_error
-    else
-      parser.parse
-    end
+    parser.parse
   end
 
-  def initialize(input)
-    @input = input
+  def initialize(test_results)
+    @test_results = test_results
   end
 
   def parse
     output = ""
 
     output += dots_or_fs + "\n"
-    if failures > 0
+    if failures.count > 0
       output += blank_lines(3) + "\n"
       output += failed_tests + "\n"
     end
     output += blank_lines(2) + "\n"
-    output += "#{total} tests ran, #{failures} red, #{passed} green" + "\n"
-    output += blank_lines(2)
+    output += "#{@test_results.count} tests ran, #{failures.count} red, #{passed.count} green"
+    output += blank_lines(3)
 
     output
   end
@@ -33,7 +29,7 @@ class TestOutputParser
       "Unable to run tests, SML says:".red,
       "",
       "",
-      @input,
+      @test_results,
     ].join("\n")
   end
 
@@ -44,8 +40,8 @@ class TestOutputParser
   end
 
   def dots_or_fs
-    @input.split("\n").inject("") do |acc, s|
-      if s.include?("true")
+    @test_results.inject("") do |acc, test|
+      if test.passed?
         acc += ".".green
       else
         acc += "F".red
@@ -54,26 +50,14 @@ class TestOutputParser
   end
 
   def failed_tests
-    @input.split("\n").select do |s|
-      s.include?("false")
-    end.inject("") do |acc, s|
-      s.gsub(" false", "").red
-    end
-  end
-
-  def total
-    @input.split("\n").count
+    failures.map { |t| t.name.red }.join("\n")
   end
 
   def failures
-    @input.split("\n").select do |s|
-      s.include?("false")
-    end.count
+    @test_results.reject(&:passed?)
   end
 
   def passed
-    @input.split("\n").select do |s|
-      s.include?("true")
-    end.count
+    @test_results.select(&:passed?)
   end
 end
