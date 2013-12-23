@@ -7,6 +7,7 @@ $:.unshift("lib")
 require 'formats_lines'
 require 'formats_tests'
 require 'sml_file'
+require 'test_output'
 require 'test_output_presenter'
 
 class Runner
@@ -20,16 +21,19 @@ class Runner
 
     @file = SmlFile.new(@input).prepare_tests
 
-    @file.save_as!(random_name + ".sml")
+    tmp_file_name = random_name
 
-    begin
-      @file.compile!(random_name + ".exe")
-      puts TestOutputPresenter.parse(@file.run)
-    rescue SmlFile::CannotCompile => e
-      puts TestOutputPresenter.parse(e.message)
-    ensure
-      clean_up!
-    end
+    @file.save_as!(tmp_file_name + ".sml")
+
+    @file.compile!(random_name + ".exe")
+
+    output = TestOutput.new(@file.run.split("\n"))
+    puts TestOutputPresenter.parse(output)
+  rescue SmlFile::CannotCompile => e
+    output = TestOutput.new(e.message.split("\n"))
+    puts TestOutputPresenter.parse(output).gsub(tmp_file_name+".sml", @input)
+  ensure
+    clean_up!
   end
 
   private
