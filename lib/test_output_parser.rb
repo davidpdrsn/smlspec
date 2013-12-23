@@ -2,11 +2,16 @@ class TestOutputParser
   def self.parse(test_results)
     parser = self.new(test_results)
 
-    parser.parse
+    if test_results.compile_error?
+      parser.parse_error
+    else
+      parser.parse
+    end
   end
 
   def initialize(test_results)
     @test_results = test_results
+    @tests = test_results.tests unless @test_results.compile_error?
   end
 
   def parse
@@ -18,7 +23,7 @@ class TestOutputParser
       output += failed_tests + "\n"
     end
     output += blank_lines(2) + "\n"
-    output += "#{@test_results.count} tests ran, #{failures.count} red, #{passed.count} green"
+    output += "#{@tests.count} tests ran, #{failures.count} red, #{passed.count} green"
     output += blank_lines(3)
 
     output
@@ -29,7 +34,7 @@ class TestOutputParser
       "Unable to run tests, SML says:".red,
       "",
       "",
-      @test_results,
+      @test_results.message,
     ].join("\n")
   end
 
@@ -40,7 +45,7 @@ class TestOutputParser
   end
 
   def dots_or_fs
-    @test_results.inject("") do |acc, test|
+    @tests.inject("") do |acc, test|
       if test.passed?
         acc += ".".green
       else
@@ -54,10 +59,10 @@ class TestOutputParser
   end
 
   def failures
-    @test_results.reject(&:passed?)
+    @tests.reject(&:passed?)
   end
 
   def passed
-    @test_results.select(&:passed?)
+    @tests.select(&:passed?)
   end
 end
