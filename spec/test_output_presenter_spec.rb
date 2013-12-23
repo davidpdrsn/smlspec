@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'test_output_parser'
+require 'test_output_presenter'
 require 'colorize'
 
-describe TestOutputParser do
+describe TestOutputPresenter do
   it "parses output for passed tests" do
     output = double(:test_output, compile_error?: false, tests: [
       double(:test, passed?: true, name: "foo_test1"),
@@ -22,7 +22,7 @@ describe TestOutputParser do
       "",
     ].join("\n")
 
-    TestOutputParser.parse(output).should eq parsed_output
+    TestOutputPresenter.parse(output).should eq parsed_output
   end
 
   it "parses output with only passes" do
@@ -40,7 +40,7 @@ describe TestOutputParser do
       "",
     ].join("\n")
 
-    TestOutputParser.parse(output).should eq parsed_output
+    TestOutputPresenter.parse(output).should eq parsed_output
   end
 
   it "parses output from a failure" do
@@ -63,6 +63,6 @@ describe TestOutputParser do
       '! Syntax error.',
     ].join("\n")
 
-    TestOutputParser.parse(output).should eq parsed_output
+    TestOutputPresenter.parse(output).should eq parsed_output
   end
 end

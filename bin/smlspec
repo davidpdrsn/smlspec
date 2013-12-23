@@ -7,7 +7,7 @@ $:.unshift("lib")
 require 'formats_lines'
 require 'formats_tests'
 require 'sml_file'
-require 'test_output_parser'
+require 'test_output_presenter'
 
 class Runner
   def self.main(input)
@@ -24,9 +24,9 @@ class Runner
 
     begin
       @file.compile!(random_name + ".exe")
-      puts TestOutputParser.parse(@file.run)
+      puts TestOutputPresenter.parse(@file.run)
     rescue SmlFile::CannotCompile => e
-      puts TestOutputParser.parse(e.message)
+      puts TestOutputPresenter.parse(e.message)
     ensure
       clean_up!
     end

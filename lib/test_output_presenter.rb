@@ -1,4 +1,4 @@
-class TestOutputParser
+class TestOutputPresenter
   def self.parse(test_results)
     parser = self.new(test_results)
 
