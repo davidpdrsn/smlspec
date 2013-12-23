@@ -8,7 +8,6 @@
 - [ ] make tests of SmlFile isolated, could be done using dependency injection
 - [ ] refactor binary
 - [ ] test for mosml being installed when running binary
-- [ ] make some sort in integration test
 
 ## Others
 
@@ -17,6 +16,7 @@
 
 ## Done
 
+- [x] make some sort in integration test
 - [x] append test function to file
 - [x] write test output parser
 - [x] make change log
