@@ -8,10 +8,12 @@
 - [ ] make tests of SmlFile isolated, could be done using dependency injection
 - [ ] refactor binary
 - [ ] test for mosml being installed when running binary
+- [ ] make some sort in integration test
 
 ## Others
 
 - [ ] allow for other implementations than moscow ml
+- [ ] make the TestOutputParser take an object that it then translates into lines to to printed. Have some object run the tests, parse the output and then build such an object.
 
 ## Done
 
