@@ -4,7 +4,6 @@
 
 - [ ] clean up fixtures folder
 - [ ] refactor binary
-- [ ] make tests of SmlFile isolated, could be done using dependency injection
 - [ ] show time it took to run tests
 
 ## Others
@@ -14,6 +13,7 @@
 
 ## Done
 
+- [x] make tests of SmlFile isolated
 - [x] append test function to file
 - [x] write test output parser
 - [x] make change log
