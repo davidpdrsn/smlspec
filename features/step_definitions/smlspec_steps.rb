@@ -32,6 +32,7 @@ Then(/^I should see the test output$/) do
   ].join("\n")
 
   lines.should eq @output
+
   clean_tmp
 end
 
@@ -48,6 +49,6 @@ Then(/^I should see a compile error message$/) do
   ].join("\n")
 
   @output.should eq expected
+
   clean_tmp
 end
-

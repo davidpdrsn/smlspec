@@ -1,19 +1,24 @@
 #!/usr/bin/env ruby
 
+$:.unshift("lib")
 require 'colorize'
 require 'digest/md5'
-
-$:.unshift("lib")
 require 'formats_lines'
 require 'formats_tests'
 require 'sml_file'
 require 'test_output'
 require 'test'
 require 'test_output_presenter'
+require 'looks_for_mosml'
 
 class Runner
   def self.main(input)
-    new(input)
+    if LooksForMosml.installed?
+      new(input)
+    else
+      puts "Moscow ML most be installed"
+      exit 1
+    end
   end
 
   def initialize(input)
