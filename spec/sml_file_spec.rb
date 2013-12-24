@@ -7,18 +7,7 @@ describe SmlFile do
 
   let(:file) do
     SmlFile.new("spec/fixtures/unformatted_tests.sml",
-                formatters: [FormatsLines, FormatsTests])
-  end
-
-  let(:fake_class) do
-    Class.new { def self.format(x); end }
-  end
-
-  before do
-    stub_const("FormatsLines", fake_class)
-    stub_const("FormatsTests", fake_class)
-    FormatsLines.stub(:format) { fixture("formatted.sml") }
-    FormatsTests.stub(:format) { fixture("formatted_tests.sml") }
+                formatters: [double(format: ""), double(format: "")])
   end
 
   it "checks that the formatters have a format method" do
@@ -43,6 +32,11 @@ describe SmlFile do
 
   describe "#prepare_tests" do
     it "prepares the tests" do
+      formatter = double(format: fixture("formatted_tests.sml"))
+      file = SmlFile.new("spec/fixtures/unformatted_tests.sml",
+                         formatters: [formatter])
+
+      formatter.should_receive(:format)
       file_with_tests_prepared = file.prepare_tests
 
       file_with_tests_prepared.contents.should eq fixture("formatted_tests.sml")
