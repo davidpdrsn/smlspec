@@ -8,6 +8,7 @@ require 'formats_lines'
 require 'formats_tests'
 require 'sml_file'
 require 'test_output'
+require 'test'
 require 'test_output_presenter'
 
 class Runner
