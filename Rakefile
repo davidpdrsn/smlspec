@@ -16,3 +16,9 @@ task :install do
   newest_build = Dir.glob("build/*.gem").last
   system "gem install ./#{newest_build}"
 end
+
+desc 'Push to rubygems'
+task :push do
+  newest_build = Dir.glob("build/*.gem").last
+  system "gem push ./#{newest_build}"
+end
