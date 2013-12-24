@@ -6,10 +6,10 @@
 
 ## Others
 
+- [ ] make tests of SmlFile isolated, could be done using dependency injection
 - [ ] allow for other implementations than moscow ml
 - [ ] work with "load" function
 - [ ] show time it took to run tests
-- [ ] make tests of SmlFile isolated, could be done using dependency injection
 - [ ] refactor binary
 - [ ] clean up fixtures folder
 
