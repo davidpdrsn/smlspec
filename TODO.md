@@ -1,16 +1,16 @@
 # TODOS
 
-## For version 0.0.5
+## For version 0.0.6
 
+- [ ] clean up fixtures folder
+- [ ] refactor binary
+- [ ] make tests of SmlFile isolated, could be done using dependency injection
+- [ ] show time it took to run tests
 
 ## Others
 
-- [ ] make tests of SmlFile isolated, could be done using dependency injection
 - [ ] allow for other implementations than moscow ml
 - [ ] work with "load" function
-- [ ] show time it took to run tests
-- [ ] refactor binary
-- [ ] clean up fixtures folder
 
 ## Done
 
