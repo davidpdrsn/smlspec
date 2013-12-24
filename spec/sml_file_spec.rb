@@ -7,7 +7,18 @@ describe SmlFile do
   before(:each) { clean_tmp }
   after(:each)  { clean_tmp }
 
-  let(:file) { SmlFile.new("spec/fixtures/unformatted_tests.sml") }
+  let(:file) do
+    SmlFile.new("spec/fixtures/unformatted_tests.sml",
+                formatters: [FormatsLines, FormatsTests])
+  end
+
+  it "checks that the formatters have a format method" do
+    expect do
+      SmlFile.new("spec/fixtures/unformatted_tests.sml",
+                  formatters: [Class.new]
+                 )
+    end.to raise_error SmlFile::InvalidFormatterInterface
+  end
 
   describe "#save_as!" do
     before { file.save_as!("tmp/saved_as.sml") }
