@@ -2,7 +2,6 @@
 
 ## For version 0.0.5
 
-- [ ] test for mosml being installed when running binary
 
 ## Others
 
@@ -20,4 +19,5 @@
 - [x] make change log
 - [x] refactor TestOutputParser
 - [x] make some sort in integration test
+- [x] test for mosml being installed when running binary
 
