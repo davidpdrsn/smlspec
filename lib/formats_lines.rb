@@ -14,7 +14,7 @@ class FormatsLines
     @keywords = %w(
       abstype and andalso as case do datatype div
       else end eqtype exception extract fn fun functor
-      handle if in include infix infixr let local mod
+      if in include infix infixr let local mod
       nonfix of op open orelse raise rec sharing sig
       signature struct structure then type val where
       with withtype
