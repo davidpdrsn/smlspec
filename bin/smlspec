@@ -25,7 +25,7 @@ class Runner
     @input = input || ""
     check_for_correct_input
 
-    @file = SmlFile.new(@input).prepare_tests
+    @file = SmlFile.new(@input, formatters: [FormatsLines, FormatsTests]).prepare_tests
 
     tmp_file_name = random_name
 

@@ -1,6 +1,4 @@
 require 'spec_helper'
-require 'formats_lines'
-require 'formats_tests'
 require 'sml_file'
 
 describe SmlFile do
@@ -10,6 +8,17 @@ describe SmlFile do
   let(:file) do
     SmlFile.new("spec/fixtures/unformatted_tests.sml",
                 formatters: [FormatsLines, FormatsTests])
+  end
+
+  let(:fake_class) do
+    Class.new { def self.format(x); end }
+  end
+
+  before do
+    stub_const("FormatsLines", fake_class)
+    stub_const("FormatsTests", fake_class)
+    FormatsLines.stub(:format) { fixture("formatted.sml") }
+    FormatsTests.stub(:format) { fixture("formatted_tests.sml") }
   end
 
   it "checks that the formatters have a format method" do
