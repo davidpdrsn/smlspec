@@ -12,9 +12,3 @@ Feature: Running SML tests
     Given I have an invalid SML file
     When I run smlspec on the file
     Then I should see a compile error message
-
-  Scenario: Running it without Moscow ML installed
-    Given I have written an SML file with tests
-    And I don't have Moscow ML installed
-    When I run smlspec on the file
-    Then I should see message saying that I don't have Moscow ML installed
