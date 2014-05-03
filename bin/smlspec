@@ -22,8 +22,8 @@ class Runner
   end
 
   def initialize(input)
-    @input = input || ""
-    check_for_correct_input
+    ensure_correct_input(input)
+    @input = input
 
     @file = SmlFile.new(@input, formatters: [FormatsLines, FormatsTests]).prepare_tests
 
@@ -39,32 +39,34 @@ class Runner
     output = TestOutput.new(e.message.split("\n"))
     puts TestOutputPresenter.parse(output).gsub(tmp_file_name+".sml", @input)
   ensure
-    clean_up!
+    clean_up!(input)
   end
 
   private
 
-  def clean_up!
-    [".uo", ".ui", ".exe"].each do |s|
-      FileUtils.rm_f(File.basename(@file.path, ".*") + s)
-    end
+  def clean_up!(input)
+    if valid_file_input(input)
+      [".uo", ".ui", ".exe"].each do |s|
+        FileUtils.rm_f(File.basename(@file.path, ".*") + s)
+      end
 
-    @file.delete!
+      @file.delete!
+    end
   end
 
   def random_name
     Digest::MD5.hexdigest(Time.now.to_s)
   end
 
-  def check_for_correct_input
-    if !valid_file_input
+  def ensure_correct_input(input)
+    unless valid_file_input(input)
       puts "Gimme an sml file, that exists!"
-      exit 1
+      exit 2
     end
   end
 
-  def valid_file_input
-    @input && File.exists?(@input) && File.extname(@input) == ".sml"
+  def valid_file_input(input)
+    input && !input.empty? && File.exists?(input) && File.extname(input) == ".sml"
   end
 end
 
